@@ -1,0 +1,22 @@
+INSERT INTO concerts (concert_id, concert_title, concert_date, concert_time, concert_city, concert_state, strategy_type, artist_role, budget_allocated) VALUES
+(1,  'Corporate Night Chennai',    '2026-08-01', '18:00', 'Chennai',       'Tamil Nadu',      'BALANCED',     'Singer-Male',   15000),
+(2,  'Wedding Reception Chennai',  '2026-08-05', '19:00', 'Chennai',       'Tamil Nadu',      'AVAILABILITY', 'Singer-Female', 12000),
+(3,  'Infosys Annual Day',         '2026-08-08', '18:30', 'Bangalore',     'Karnataka',       'BALANCED',     'Guitarist',     10000),
+(4,  'Tech Summit',                '2026-08-10', '17:00', 'Bangalore',     'Karnataka',       'AVAILABILITY', 'Drummer',        9000),
+(5,  'Music Fest Hyderabad',       '2026-08-12', '18:00', 'Hyderabad',     'Telangana',       'BALANCED',     'Keyboardist',   11000),
+(6,  'Cultural Event Pune',        '2026-08-15', '18:30', 'Pune',          'Maharashtra',     'AVAILABILITY', 'Flutist',       13000),
+(7,  'Startup Meetup Mumbai',      '2026-08-18', '19:00', 'Mumbai',        'Maharashtra',     'BALANCED',     'Tablist',        8000),
+(8,  'Corporate Event Delhi',      '2026-08-20', '18:00', 'Delhi',         'Delhi',           'AVAILABILITY', 'Singer-Male',   16000),
+(9,  'Leadership Summit Kochi',    '2026-08-22', '18:00', 'Kochi',         'Kerala',          'BALANCED',     'Singer-Female', 12000),
+(10, 'Festival Mysore',            '2026-08-25', '19:00', 'Mysore',        'Karnataka',       'AVAILABILITY', 'Guitarist',     10000),
+(11, 'Concert Coimbatore',         '2026-08-28', '18:00', 'Coimbatore',    'Tamil Nadu',      'BALANCED',     'Drummer',        9000),
+(12, 'Corporate Vizag',            '2026-09-01', '18:00', 'Visakhapatnam', 'Andhra Pradesh',  'AVAILABILITY', 'Keyboardist',   10000),
+(13, 'Wedding Jaipur',             '2026-09-05', '19:00', 'Jaipur',        'Rajasthan',       'BALANCED',     'Flutist',       14000),
+(14, 'Festival Lucknow',           '2026-09-08', '18:00', 'Lucknow',       'Uttar Pradesh',   'AVAILABILITY', 'Tablist',        8000),
+(15, 'Corporate Chandigarh',       '2026-09-10', '18:30', 'Chandigarh',    'Punjab',          'BALANCED',     'Singer-Male',   15000),
+(16, 'Tech Event Indore',          '2026-09-12', '18:00', 'Indore',        'Madhya Pradesh',  'AVAILABILITY', 'Singer-Female', 12000),
+(17, 'Public Concert Goa',         '2026-09-15', '19:00', 'Panaji',        'Goa',             'BALANCED',     'Guitarist',     12000),
+(18, 'Music Night Surat',          '2026-09-18', '18:00', 'Surat',         'Gujarat',         'AVAILABILITY', 'Drummer',        9000),
+(19, 'Business Meet Nagpur',       '2026-09-20', '18:00', 'Nagpur',        'Maharashtra',     'BALANCED',     'Keyboardist',   10000),
+(20, 'Annual Function Patna',      '2026-09-25', '18:00', 'Patna',         'Bihar',           'AVAILABILITY', 'Flutist',       13000)
+ON CONFLICT (concert_id) DO NOTHING;

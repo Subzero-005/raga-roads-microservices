@@ -1,0 +1,86 @@
+services:
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: ragaroads-postgres
+    environment:
+      POSTGRES_DB: ragaroads_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - ragaroads-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  auth-service:
+    build: ./auth-service
+    container_name: ragaroads-auth
+    ports:
+      - "8084:8084"
+    networks:
+      - ragaroads-net
+
+  artist-service:
+    build: ./artist-service
+    container_name: ragaroads-artist
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ragaroads_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ragaroads-net
+
+  concert-service:
+    build: ./concert-service
+    container_name: ragaroads-concert
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ragaroads_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ragaroads-net
+
+  booking-service:
+    build: ./booking-service
+    container_name: ragaroads-booking
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ragaroads_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      ARTIST_SERVICE_URL: http://artist-service:8081
+      CONCERT_SERVICE_URL: http://concert-service:8082
+    depends_on:
+      postgres:
+        condition: service_healthy
+      artist-service:
+        condition: service_started
+      concert-service:
+        condition: service_started
+    networks:
+      - ragaroads-net
+
+networks:
+  ragaroads-net:
+    driver: bridge
+
+volumes:
+  pgdata:
